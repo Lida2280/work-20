@@ -1,0 +1,106 @@
+#include <iostream>
+#include <cstdlib>
+#include <iomanip>
+using namespace std;
+
+void clearScreen() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
+void drawSnake(int size, char texture) {
+    clearScreen();
+    
+    // Вывод шапки программы
+    cout << "[ 20 ] Самостоятельная работа | E+" << endl;
+    cout << "Тема: [ FOR ]" << endl;
+    cout << "Продолжение программы \"Геометрические фигуры\"." << endl;
+    cout << endl;
+    cout << "[ + ] Программа - \"Геометрические фигуры\"" << endl;
+    cout << "----------------------------------------" << endl << endl;
+    
+    // Информация о выбранной фигуре
+    cout << "[ + ] Фигура: \"Змейка\"" << endl << endl;
+    cout << "[ + ] Размер: \t" << size << endl;
+    cout << "[ + ] Текстура: \t" << texture << endl << endl;
+    cout << "[ + ] Результат:" << endl << endl;
+    
+    // Рисуем змейку
+    for (int row = 0; row < size; row++) {
+        for (int col = 0; col < size; col++) {
+            if (row % 2 == 0) {
+                // Четные строки (0, 2, 4, 6...): все символы заполняются текстурой
+                cout << texture;
+            } else {
+                // Нечетные строки (1, 3, 5...): 
+                if (row % 4 == 1) {
+                    // Строки 1, 5, 9...: все точки, последний символ - текстура
+                    if (col == size - 1) {
+                        cout << texture;
+                    } else {
+                        cout << ".";
+                    }
+                } else {
+                    // Строки 3, 7, 11...: первый символ - текстура, остальные - точки
+                    if (col == 0) {
+                        cout << texture;
+                    } else {
+                        cout << ".";
+                    }
+                }
+            }
+            
+            // Добавляем пробелы между символами (5 пробелов как в примере)
+            if (col < size - 1) {
+                cout << "     ";
+            }
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    clearScreen();
+    
+    // Главное меню
+    cout << "[ 20 ] Самостоятельная работа | E+" << endl;
+    cout << "Тема: [ FOR ]" << endl;
+    cout << "Продолжение программы \"Геометрические фигуры\"." << endl;
+    cout << endl;
+    cout << "[ + ] Программа - \"Геометрические фигуры\"" << endl;
+    cout << "----------------------------------------" << endl << endl;
+    
+    // Меню выбора фигур
+    cout << "Доступные фигуры:" << endl;
+    for (int i = 1; i <= 8; i++) {
+        cout << "[ " << i << " ] Фигура " << i << endl;
+    }
+    cout << "[ 9 ] Змейка" << endl;
+    cout << "[ 0 ] Выход" << endl << endl;
+    
+    int choice;
+    cout << "[ + ] Выберите фигуру: ";
+    cin >> choice;
+    
+    if (choice == 9) {
+        int size;
+        char texture;
+        
+        cout << "[ + ] Размер: \t";
+        cin >> size;
+        
+        cout << "[ + ] Текстура: \t";
+        cin >> texture;
+        
+        drawSnake(size, texture);
+    } else if (choice == 0) {
+        cout << "Выход из программы..." << endl;
+    } else {
+        cout << "Фигура №" << choice << " будет реализована позже." << endl;
+    }
+    
+    return 0;
+}
